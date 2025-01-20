@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill Bubbles</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f8ff;
+            overflow: hidden;
+            padding: 0 20px;
+            background-image: url('bg.jpg'); /* Ensure the path is correct */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        body:after {
+            position: absolute;
+            content: "";
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            opacity: .8; /* Adjust opacity as needed */
+            z-index: -1;
+            background: #cee2f4; 
+            background: -webkit-linear-gradient(to right, #d2eaf7, #d2eff2); 
+            background: linear-gradient(to right, #d9d4db, #e1d9e1); 
+            
+          }
+        
+        .skills-container {
+            flex: 1;
+            padding: 20px;
+            font-size: 2rem;
+            font-weight:bold;
+            color: #0f444e;
+        }
+
+        .bubble-container {
+            flex: 1;
+            position: relative;
+            max-width: 70%;
+            height: 80vh;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            align-items: center;
+            gap: 40px; /* Increased gap between bubbles */
+        }
+
+        .bubble {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #567a82, #6ab2c4);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: absolute; /* Allows for random placement */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            animation: float 7s ease-in-out infinite;
+        }
+
+        /* Larger Bubble Sizes */
+        .bubble.large {
+            width: 180px;
+            height: 180px;
+            font-size: 18px;
+        }
+
+        .bubble:hover {
+            transform: scale(1.2);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #2193b0, #6dd5ed);
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+            }
+            50% {
+                transform: translateY(-20px) translateX(20px);
+            }
+            100% {
+                transform: translateY(0) translateX(0);
+            }
+        }
+
+        /* Category Buttons */
+        .category-btn {
+            background-color: #1b5969;
+            color: white;
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .category-btn:hover {
+            background: linear-gradient(135deg, #EFB6C8, #B3D9FF);  /* Pastel pink to pastel blue */
+            color: black;  /* Change text color to black when hovered */
+        }
+        
+
+        /* Media Query for smaller screens */
+        @media (max-width: 768px) {
+            .skills-container {
+                font-size: 1.5rem;
+            }
+            .bubble {
+                width: 120px;
+                height: 120px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="skills-container">
+        <h2 >Skills</h2>
+        <!-- Category buttons -->
+        <button class="category-btn">Web Development</button>
+        <button class="category-btn">Programming Languages</button>
+        <button class="category-btn">Tools</button>
+        <button class="category-btn">Soft Skills</button>
+        <button class="category-btn">Other</button>
+    </div>
+
+    <div class="bubble-container">
+        <div class="bubble" data-skill="Problem Solving" style="top:35%; right: 85%;">Problem Solving</div>
+        <div class="bubble" data-skill="Python" style="top: 5%; left: 5%;">Python</div>
+        <div class="bubble" data-skill="SQL" style="top: 15%; left: 20%;">SQL</div>
+        <div class="bubble large" data-skill="Machine Learning" style="top: 50%; right: 50%;">Machine Learning</div>
+        <div class="bubble large" data-skill="VS Code" style="top: 70%; right:60%;">VS Code</div>
+        <div class="bubble" data-skill="Jupyter Notebook" style="top: 75%; left: 35%;">Jupyter Notebook</div>
+        <div class="bubble" data-skill="HTML" style="top:25%; right: 10%;">HTML</div>
+        <div class="bubble" data-skill="CSS" style="top: 5%; right: 20%;">CSS</div>
+        <div class="bubble" data-skill="Adaptability" style="top: 1%; right:1%;">Adaptability</div>
+        <div class="bubble" data-skill="Quick Learning" style="top: 50%; left: 60%;">Quick Learning</div>
+        <div class="bubble" data-skill="Streamlit" style="top:70%; left: 70%;">Streamlit</div>
+        <div class="bubble" data-skill="AI Tools" style="top: 90%; left: 0%;">AI Tools</div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const allBubbles = document.querySelectorAll('.bubble');
+            
+            // Define skill categories
+            const skills = {
+                'web development': ['HTML', 'CSS'],
+                'programming languages': ['Python', 'SQL', 'Machine Learning'],
+                'tools': ['VS Code', 'Jupyter Notebook', 'Streamlit'],
+                'soft skills': ['Problem Solving', 'Adaptability', 'Quick Learning'],
+                'other': ['AI Tools']
+            };
+
+            // Function to highlight bubbles based on category
+            function highlightBubbles(category) {
+                allBubbles.forEach(bubble => {
+                    // Reset background to default for all bubbles
+                    bubble.style.background = 'linear-gradient(135deg, #6dd5ed, #2193b0)';
+                    bubble.style.color = 'white'; 
+                    
+                    // Check if the bubble's skill matches the category
+                    if (category.includes(bubble.dataset.skill)) {
+                        // Highlight the bubble if it's in the selected category
+                        bubble.style.background = 'linear-gradient(135deg,#EFB6C8, #B3D9FF)';
+                        bubble.style.color = 'black'; 
+                    }
+                });
+            }
+
+            // Event listeners for each category button
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const category = button.innerText.toLowerCase(); // No need to replace spaces anymore
+                    if (skills[category]) {
+                        highlightBubbles(skills[category]);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
