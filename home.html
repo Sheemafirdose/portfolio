@@ -6,6 +6,7 @@
     <title>Home - My Certificates</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        /* Existing styles remain unchanged */
         body {
             background-image: url('bg.jpg'); /* Ensure the path is correct */
             background-size: cover;
@@ -15,9 +16,9 @@
             font-family: 'Lato', sans-serif;
             font-weight: 300;
             font-size: 1.6rem;
-          }
-          
-          body:after {
+        }
+
+        body:after {
             position: absolute;
             content: "";
             left: 0;
@@ -30,39 +31,41 @@
             background: #cee2f4; 
             background: -webkit-linear-gradient(to right, #d2eaf7, #d2eff2); 
             background: linear-gradient(to right, #d9d4db, #e1d9e1); 
-            
-          }
-          
-          .boxed-page {
+        }
+
+        .boxed-page {
             margin: 0 auto;
             margin-top: 6rem;
             margin-bottom: 6rem;
             position: relative;
             box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.11), 0 5px 15px 0 rgba(0, 0, 0, 0.08);
             border-radius: 5px;
-          }
-          
-          @media (min-width: 1200px) {
+        }
+
+        @media (min-width: 1200px) {
             .boxed-page {
-              width: 1024px;
+                width: 1024px;
             }
             .boxed-page .container {
-              max-width: 1080px;
-              padding-left: 30px;
-              padding-right: 30px;
+                max-width: 1080px;
+                padding-left: 30px;
+                padding-right: 30px;
             }
-          }
-          
-        /* Header Section Styling */
-        .header {
-            background-color: #4e767e; 
-            color: black; /* Black text */
-            padding: 40px 0;
-            text-align: center;
-            margin-bottom: 20px;
-            border-radius: 8px;
         }
-        
+
+        .header {
+            background-color: #4e767e;
+            color: black;
+            padding: 40px 20px; /* Adjust padding */
+            text-align: center;
+            margin-bottom: 0;
+            border-radius: 0;
+            position: fixed; /* Make it fixed at the top */
+            top: 0;
+            left: 0; /* Change left from 120px to 0 to cover the full width */
+            width: 100%; /* Set width to 100% to cover the entire header */
+            z-index: 1; /* Ensure it stays on top of other content */
+        }
 
         .header h1 {
             font-size: 3.5rem;
@@ -70,12 +73,53 @@
             color: rgb(255, 255, 255);
         }
 
-        /* Centering the content */
+        /* Sidebar Styling */
+        .sidebar {
+            position: fixed;
+            top: 150px; /* Move the sidebar down, just below the header */
+            left: 0;
+            height: 100%;
+            width: 200px;
+            background-color: #4e767e;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+            color: white;
+            transition: transform 0.3s ease;
+        }
+        .sidebar.hidden {
+            transform: translateX(-200px);
+        }
+
+        .sidebar h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            font-size: 1.2rem;
+        }
+
+        .sidebar a:hover {
+            background-color: #3b5a5f;
+            padding-left: 10px;
+            transition: 0.3s;
+        }
+
+        /* Adjust Content to Account for Fixed Header and Center it */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 50px;
-            text-align: center;
+            margin-top: 150px; /* Space for the fixed header */
+            text-align: center; /* Ensure text is centered */
+            margin-left: 220px; /* Keep this to account for the sidebar */
         }
 
         h2 {
@@ -84,12 +128,24 @@
             color: #101010;
         }
 
+        /* Add this to the existing CSS */
+        .header-sidebar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #4e767e;
+            color: black;
+            padding: 20px 40px;
+            border-radius: 0;
+            position: relative;
+        }
+
         .about-me {
             margin-top: 40px;
             font-size: 1.4rem;
             line-height: 1.6;
             color: #060606;
-            text-align:justify;
+            text-align: justify;
             text-justify: inter-word;
         }
 
@@ -115,14 +171,13 @@
         }
 
         .btn-enter:hover {
-            background-color: #042321;
-            
+            background-color: #9ab5c4;
+            color:black;
         }
 
         /* Bold Text for Important Information */
         .bold-text {
             font-weight: bold;
-            
         }
 
         a {
@@ -130,14 +185,26 @@
             text-decoration: none;
             color: #082d55;
         }
-
     </style>
 </head>
 <body>
 
+<!-- Sidebar -->
+<div class="sidebar">
+    <a href="#home">Home</a>
+    <a href="sample.html">Certificates</a>
+    <a href="Resume.pdf">Resume</a>
+    <a href="skills.html">Skills</a>
+    <a href="#connect">Connect</a>
+</div>
+
 <!-- Header Section -->
 <div class="header">
     <h1>Welcome to My Portfolio</h1>
+    <!-- Toggle Sidebar Button -->
+    <button onclick="toggleSidebar()" class="btn-enter" style="position: absolute; top: 20px; left: 20px;">
+        &#9776; 
+    </button>
 </div>
 
 <!-- Main Content -->
@@ -145,7 +212,7 @@
     <!-- Profile Section -->
     <img src="my_pic.jpg" alt="Profile Picture" class="profile-image">
     
-    <h2>About Me</h2>
+    <h2 id="about">About Me</h2>
     <p class="about-me">
         Hi, I'm <span class="bold-text">Shaik Sheema Firdose</span>, a passionate engineering student specializing in 
         <span class="bold-text">Artificial Intelligence and Machine Learning (AI/ML)</span>. I'm currently pursuing my B.Tech in 
@@ -169,7 +236,7 @@
 
 <!-- Connect Section -->
 <div class="container">
-    <h2>Connect with Me</h2>
+    <h2 id="connect">Connect with Me</h2>
     <p>
         Feel free to reach out through my social profiles:
     </p>
@@ -180,6 +247,13 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- JavaScript for Toggling Sidebar -->
+<script>
+    function toggleSidebar() {
+        document.querySelector('.sidebar').classList.toggle('hidden');
+    }
+</script>
 
 </body>
 </html>
